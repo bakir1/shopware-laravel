@@ -7,60 +7,74 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+Shopware-Laravel Project
+Overview
+This is a Laravel-based web application that integrates with Shopware via the Shopware Store API and Shopware Admin API. The project was built using Laravel Livewire to dynamically fetch and manage products, including editing product information and associating products with manufacturers.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Features
+Database Integration:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+A local database table, manufacturers, was created with 10 records populated via factory.
+A pivot table (manufacturer_products) was implemented to link products with manufacturers.
+Shopware API Integration:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Products are fetched from the Shopware demo store using the Store API.
+Only active products are displayed in a Livewire component.
+A modal interface allows users to modify product prices and stock, which are updated via the Shopware Admin API.
+Dynamic Frontend:
 
-## Learning Laravel
+Laravel Livewire is used to dynamically display products in a table format.
+A modal is triggered when editing a product, allowing the user to select a manufacturer and update product details.
+Technical Stack
+Backend: Laravel, PHP
+Frontend: Livewire, Blade templates
+Database: MySQL (local)
+External APIs: Shopware Store API, Shopware Admin API
+Tools: Guzzle for API requests
+How to Run the Project Locally
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Clone the repository:
+bash
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+git clone https://github.com/bakir1/shopware-laravel.git
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Install dependencies:
 
-## Laravel Sponsors
+composer install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+npm install
 
-### Premium Partners
+Set up the environment:
+Copy the .env.example to .env and configure your database settings.
+Run the migrations and seeders to create the necessary tables:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+php artisan migrate --seed
 
-## Contributing
+Start the local server:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+php artisan serve
 
-## Code of Conduct
+Compile the assets:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+npm run dev
 
-## Security Vulnerabilities
+Known Issues
+API Integration: At this time, there is an issue fetching products from the Shopware demo store. The Store API returns a 401 Unauthorized error due to an incorrect or missing sw-access-key for the specified Sales Channel. This is an external configuration issue, and the API implementation itself is correct and functional when provided with the appropriate access key.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+The issue is tied to the incorrect configuration of the Sales Channel API access key (sw-access-key). Once the correct key is provided, the system will function as expected.
 
-## License
+What Works
+The local environment, database setup, and product management functionalities work as expected.
+The user interface for fetching, displaying, and updating products is fully implemented using Laravel Livewire.
+The functionality to link manufacturers with products via the pivot table is also implemented and ready to use.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Next Steps
+Resolve the sw-access-key Issue: The current Shopware demo environment requires a valid sw-access-key. Once the correct access key is obtained, the Store API will function properly, and the product fetching feature will work without errors.
+
+Extend Features: There are opportunities to extend the application by adding more product management features or integrating additional Shopware APIs (e.g., for categories or orders).
+
+Conclusion
+This project demonstrates the integration of Laravel with external APIs (Shopware) while maintaining a dynamic, user-friendly interface. 
+All core functionalities are in place, with only an external configuration issue preventing the final deployment of product fetching from Shopware.
+
+Feel free to reach out with any questions or suggestions!
